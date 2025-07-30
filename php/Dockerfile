@@ -1,16 +1,31 @@
 FROM php:8.2-fpm
 
+
 RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    libzip-dev \
-    zip \
-    unzip \
-    git \
-    && docker-php-ext-install pdo pdo_pgsql zip
-RUN apt-get update && apt-get install -y \
-    libssl-dev \
+    git unzip zip curl libpq-dev libzip-dev libssl-dev libonig-dev libxml2-dev libicu-dev \
+    && docker-php-ext-install \
+        pdo pdo_pgsql zip intl \
     && pecl install mongodb \
     && docker-php-ext-enable mongodb
 
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+
+WORKDIR /var/www/html
+COPY . .
+
+
+RUN composer install --no-dev --optimize-autoloader
+
+
+RUN chown -R www-data:www-data var
+
+
+ENV PORT=8000
+EXPOSE 8000
+
+
+COPY docker/start.sh /start.sh
+RUN chmod +x /start.sh
+CMD ["/start.sh"]
