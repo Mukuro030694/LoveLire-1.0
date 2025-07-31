@@ -1,0 +1,219 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma Bibliothèque - LoveLire{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('styles/style.css') }}">
+<style>
+    .card.clickable {
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card.clickable:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<header class="d-flex justify-content-between align-items-center mb-4">
+    <div></div>
+    <h1 class="text-center flex-grow-1">Ma Bibliothèque</h1>
+    <button id="logoutBtn" class="btn btn-outline-danger" type="button">Déconnexion</button>
+</header>
+
+<div class="content-box p-4 bg-white rounded shadow-sm">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h4 mb-0">Mes livres</h2>
+        <div class="d-flex gap-2">
+            <button class="btn btn-primary" id="addBookBtn" type="button" data-bs-toggle="modal"
+                data-bs-target="#addBookModal">Ajouter un livre</button>
+            <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#filters">
+                Filtres
+            </button>
+            {% if is_granted('ROLE_ADMIN') %}
+            <button id="openUserModal" class="btn btn-warning">Gérer les utilisateurs</button>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="userModal" class="modal" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%);
+     background:#fff; border:1px solid #ccc; padding:20px; z-index:1000; max-height:80vh; overflow-y:auto;">
+        <h3>Liste des utilisateurs</h3>
+        <ul id="userList"></ul>
+        <button onclick="document.getElementById('userModal').style.display='none'"
+            class="btn btn-secondary">Fermer</button>
+    </div>
+
+    <div class="collapse mb-4" id="filters">
+        <div class="card card-body">
+            <form id="filterForm" method="get" action="{{ path('book_filter') }}">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="filter-title" class="form-label">Par ordre alphabétique</label>
+                        <select id="filter-title" name="title_order" class="form-select">
+                            <option value="">Tous</option>
+                            <option value="asc" {% if app.request.get('title_order')=='asc' %}selected{% endif %}>A → Z
+                            </option>
+                            <option value="desc" {% if app.request.get('title_order')=='desc' %}selected{% endif %}>Z →
+                                A</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="filter-status" class="form-label">Par statut</label>
+                        <select id="filter-status" name="status" class="form-select">
+                            <option value="">Tous</option>
+                            <option value="lu" {% if app.request.get('status')=='lu' %}selected{% endif %}>Lu</option>
+                            <option value="en_cours" {% if app.request.get('status')=='en_cours' %}selected{% endif %}>
+                                En_cours</option>
+                            <option value="à lire" {% if app.request.get('status')=='à_lire' %}selected{% endif %}>À
+                                lire</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="filter-rating" class="form-label">Par note</label>
+                        <select id="filter-rating" name="note" class="form-select">
+                            <option value="">Toutes</option>
+                            <option value="5" {% if app.request.get('note')=='5' %}selected{% endif %}>★★★★★</option>
+                            <option value="4" {% if app.request.get('note')=='4' %}selected{% endif %}>★★★★</option>
+                            <option value="3" {% if app.request.get('note')=='3' %}selected{% endif %}>★★★</option>
+                            <option value="2" {% if app.request.get('note')=='2' %}selected{% endif %}>★★</option>
+                            <option value="1" {% if app.request.get('note')=='1' %}selected{% endif %}>★</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-3 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">Appliquer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 row-cols-xxl-8 g-4"
+        id="book-cards">
+        {% for book in books %}
+        <div class="col">
+            <div class="card h-100 shadow-sm clickable" data-id="{{ book.id }}" data-title="{{ book.title|e }}"
+                data-status="{{ book.status }}" data-note="{{ book.note }}" data-comment="{{ book.comment|e }}"
+                data-cover="{{ book.coverImage is defined and book.coverImage ? book.coverImage : '/images/default-cover.png' }}">
+                <img src="{{ book.coverImage is defined and book.coverImage ? book.coverImage : '/images/default-cover.png' }}"
+                    class="card-img-top" alt="{{ book.title }}">
+                <div class="card-body">
+                    <h5 class="card-title text-truncate">{{ book.title }}</h5>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <p class="text-muted">Aucun livre trouvé.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="modal fade" id="addBookModal" tabindex="-1" aria-labelledby="addBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="addBookForm" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addBookModalLabel">Ajouter un livre</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body d-flex gap-4">
+                    <div class="flex-shrink-0 text-center" style="width: 200px;">
+                        <img id="addCoverPreview" src="/images/default-cover.png" class="img-fluid rounded shadow mb-2"
+                            style="cursor: pointer;">
+                        <input type="file" id="book-cover" name="coverImage" accept="image/*" style="display: none;">
+                        <div class="small text-muted">Cliquez sur l’image pour modifier</div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="mb-3">
+                            <label for="book-title" class="form-label">Titre</label>
+                            <input type="text" id="book-title" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="book-status" class="form-label">Statut</label>
+                            <select id="book-status" class="form-select">
+                                <option value="à_lire">À lire</option>
+                                <option value="en_cours">En cours</option>
+                                <option value="lu">Lu</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="book-note" class="form-label">Note</label>
+                            <input type="number" id="book-note" class="form-control" min="0" max="5">
+                        </div>
+                        <div class="mb-3">
+                            <label for="book-comment" class="form-label">Commentaire</label>
+                            <textarea id="book-comment" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{# Modal for editing book details #}
+<div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="bookModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookModalLabel">Modifier le livre</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body d-flex gap-4">
+                <div class="flex-shrink-0 text-center" style="width: 200px;">
+                    <img id="modalCoverImage" src="" alt="Book cover" class="img-fluid rounded shadow mb-2"
+                        style="cursor: pointer;">
+                    <input type="file" id="modalCoverUpload" name="modalCoverUpload" accept="image/*"
+                        style="display: none;">
+                    <div class="small text-muted">Cliquez sur l’image pour modifier</div>
+                </div>
+
+                <div class="flex-grow-1">
+                    <input type="hidden" id="modalBookId">
+
+                    <div class="mb-3">
+                        <label for="modalTitle" class="form-label">Titre</label>
+                        <input type="text" id="modalTitle" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="modalStatus" class="form-label">Statut</label>
+                        <select id="modalStatus" class="form-select">
+                            <option value="à_lire">À lire</option>
+                            <option value="en_cours">En cours</option>
+                            <option value="lu">Lu</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="modalNote" class="form-label">Note</label>
+                        <input type="number" min="0" max="5" id="modalNote" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="modalComment" class="form-label">Commentaire</label>
+                        <textarea id="modalComment" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button id="deleteBtn" class="btn btn-danger">Supprimer</button>
+                        <button id="saveChangesBtn" class="btn btn-primary">Appliquer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

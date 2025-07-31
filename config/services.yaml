@@ -1,0 +1,39 @@
+# config/services.yaml
+
+parameters:
+
+    covers_directory: '%kernel.project_dir%/public/uploads/covers'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\EventListener\JWTLoginSuccessListener:
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccess }
+
+    App\Security\CookieTokenExtractor:
+        arguments:
+            $cookieName: 'BEARER'
+    
+    Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\TokenExtractorInterface:
+        class: Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\ChainTokenExtractor
+        arguments:
+            - 
+              - '@App\Security\CookieTokenExtractor'
+              - '@Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\AuthorizationHeaderTokenExtractor'
+
+    App\Service\MongoDBService:
+        arguments:
+            $mongoManager: '@doctrine_mongodb.odm.document_manager'
+    
+    
+    

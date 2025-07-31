@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - LoveLire{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('styles/style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="content-box d-flex gap-4 flex-wrap">
+
+    <div class="login-box">
+        <h2>Connexion</h2>
+        <form class="login-form">
+            <div class="mb-3">
+                <label for="username" class="form-label">Nom d'utilisateur</label>
+                <input type="text" id="username" name="username" class="form-control" required autofocus>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-dark">Se connecter</button>
+        </form>
+    </div>
+
+    <div class="register-box">
+        <h2>Inscription</h2>
+        <form class="register-form">
+            <div class="mb-3">
+                <label for="reg_username" class="form-label">Nom d'utilisateur</label>
+                <input type="text" id="reg_username" name="username" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="reg_password" class="form-label">Mot de passe</label>
+                <input type="password" id="reg_password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">S'inscrire</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

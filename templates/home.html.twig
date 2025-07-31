@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - LoveLire{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/style.css') }}">
+{% endblock %}
+
+{% block content %}
+<header class="custom-header">
+    <div class="logo-title">
+        <img src="{{ asset('images/logo.png') }}" alt="Logo LoveLire" class="logo">
+        <div class="title-text">
+            LoveLire
+            <span class="slogan">votre bibliothèque en ligne</span>
+        </div>
+    </div>
+    <a href="{{ path('app_authapp_auth_page') }}" class="btn btn-primary btn-login">Se connecter</a>
+</header>
+
+<div class="content-box">
+    {% if books|length > 0 %}
+        <div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for item in books %}
+                    {% set book = item.book %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <div class="d-flex justify-content-center">
+                            <div class="card shadow-sm d-flex flex-row" style="width: 100%; max-width: 800px; background: white;">
+                                <div class="book-info p-3" style="flex: 0 0 40%; display: flex; align-items: center; justify-content: center;">
+                                    <img src="{{ item.cover is not null ? item.cover : asset('images/default-cover.png') }}"
+                                         alt="Couverture de {{ book.title }}"
+                                         class="img-fluid"
+                                         style="max-height: 300px; border-radius: 0.3rem;">
+                                </div>
+                                <div class="comment-info p-3 d-flex flex-column justify-content-center text-start" style="flex: 1;">
+                                    <h5 class="book-title mb-3">{{ book.title }}</h5>
+                                    <p class="mb-2"><strong>Ajouté par :</strong> {{ item.username }}</p>
+                                    <p class="mb-2">
+                                        <strong>Note :</strong>
+                                        <span class="stars">
+                                            {% for i in 1..5 %}
+                                                {% if i <= book.note %}★{% else %}☆{% endif %}
+                                            {% endfor %}
+                                        </span>
+                                    </p>
+                                    <p class="mb-2"><strong>Statut :</strong> {{ book.status|capitalize }}</p>
+                                    <p class="mb-0"><strong>Commentaire :</strong> {{ book.comment }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#bookCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Précédent</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#bookCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Suivant</span>
+            </button>
+        </div>
+    {% else %}
+        <p class="text-center">Aucun livre disponible.</p>
+    {% endif %}
+</div>
+{% endblock %}
