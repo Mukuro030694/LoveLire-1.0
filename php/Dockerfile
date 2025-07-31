@@ -26,6 +26,6 @@ ENV PORT=8000
 EXPOSE 8000
 
 
-COPY docker/start.sh /start.sh
+COPY start.sh /start.sh
 RUN chmod +x /start.sh
 CMD ["/start.sh"]
