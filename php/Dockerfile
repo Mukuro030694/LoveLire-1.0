@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
     git unzip zip curl libpq-dev libzip-dev libssl-dev libonig-dev libxml2-dev libicu-dev \
     && docker-php-ext-install \
         pdo pdo_pgsql zip intl \
-    && pecl install mongodb \
+    && pecl install mongodb-2.1.1 \
     && docker-php-ext-enable mongodb
 
 
