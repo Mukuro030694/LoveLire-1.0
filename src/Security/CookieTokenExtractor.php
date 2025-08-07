@@ -1,5 +1,5 @@
 <?php
-// src/Security/CookieTokenExtractor.php
+
 namespace App\Security;
 
 use Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\TokenExtractorInterface;
@@ -15,7 +15,10 @@ class CookieTokenExtractor implements TokenExtractorInterface
     }
 
     public function extract(Request $request): ?string
-    {
-        return $request->cookies->get($this->cookieName);
-    }
+{
+    $token = $request->cookies->get($this->cookieName);
+    error_log('[CookieTokenExtractor] Called - token: ' . ($token ? '[TOKEN PRESENT]' : '[NO TOKEN]'));
+    return $token;
+}
+
 }

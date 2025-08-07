@@ -1,7 +1,4 @@
-# config/services.yaml
-
 parameters:
-
     covers_directory: '%kernel.project_dir%/public/uploads/covers'
 
 services:
@@ -23,17 +20,9 @@ services:
     App\Security\CookieTokenExtractor:
         arguments:
             $cookieName: 'BEARER'
-    
-    Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\TokenExtractorInterface:
-        class: Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\ChainTokenExtractor
-        arguments:
-            - 
-              - '@App\Security\CookieTokenExtractor'
-              - '@Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\AuthorizationHeaderTokenExtractor'
+        tags:
+            - { name: 'lexik_jwt_authentication.token_extractor', priority: 100 }
 
     App\Service\MongoDBService:
         arguments:
             $mongoManager: '@doctrine_mongodb.odm.document_manager'
-    
-    
-    

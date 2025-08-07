@@ -25,7 +25,7 @@ class LibraryController extends AbstractController
         $currentUser = $security->getUser();
 
         if (!$currentUser) {
-            return $this->redirectToRoute('/'); 
+            return $this->redirectToRoute('app_home'); 
         }
         //get books from PostgreSQL
         $books = $entityManager->getRepository(Book::class)->findBy(['userId' => $currentUser->getId()]);

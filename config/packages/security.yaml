@@ -35,10 +35,14 @@ security:
             provider: app_user_provider
             jwt: ~
 
+        public:
+            pattern: ^/(|home|other-public-paths)
+            stateless: true
+            security: false
+
     access_control:
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/library$, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/book, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/, roles: PUBLIC_ACCESS }
