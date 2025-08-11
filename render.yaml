@@ -1,21 +1,20 @@
 services:
   - type: web
-    name: symfony-app
+    name: lovelire-app
     env: docker
-    dockerfilePath: ./php/Dockerfile
+    plan: starter
+    dockerfilePath: Dockerfile
+    branch: main
     envVars:
       - key: APP_ENV
         value: prod
-      - key: APP_SECRET
-        sync: false
-      - key: DATABASE_URL
-        sync: false
-      - key: MONGODB_URL
-        sync: false
       - key: JWT_PRIVATE_KEY
-        sync: false
+        fromSecret: jwt-private-key
       - key: JWT_PUBLIC_KEY
-        sync: false
-    plan: free
-    region: frankfurt
-    branch: main
+        fromSecret: jwt-public-key
+      - key: DATABASE_URL
+        fromSecret: db-url
+      - key: MONGODB_URL
+        fromSecret: mongo-url
+      - key: JWT_PASSPHRASE
+        value: lovelire

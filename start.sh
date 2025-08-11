@@ -1,4 +1,3 @@
-
 set -e
 
 mkdir -p config/jwt
