@@ -1,5 +1,14 @@
 
-PORT=${PORT:-8000}
+set -e
 
-echo "Starting Symfony server on port $PORT..."
-php -S 0.0.0.0:$PORT -t public
+mkdir -p config/jwt
+echo "$JWT_PRIVATE_KEY" > config/jwt/private.pem
+echo "$JWT_PUBLIC_KEY" > config/jwt/public.pem
+chmod 600 config/jwt/*.pem
+
+composer install --no-interaction --prefer-dist --optimize-autoloader
+
+php bin/console cache:clear --env=prod
+php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
+
+exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
