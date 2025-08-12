@@ -1,10 +1,8 @@
 .git
 .gitignore
 node_modules
-vendor
 .dockerignore
 docker-compose.yml
-nginx/
 php/Dockerfile
 public/uploads
 var/
