@@ -10,7 +10,9 @@ composer install --no-interaction --prefer-dist --optimize-autoloader
 php bin/console cache:clear --env=prod
 php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
 
-envsubst '$PORT' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default_render.conf
-mv /etc/nginx/conf.d/default_render.conf /etc/nginx/conf.d/default.conf
+if [ -z "$PORT" ]; then
+  PORT=8080
+fi
+sed -i "s/__PORT__/$PORT/g" /etc/nginx/conf.d/default.conf
 
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
