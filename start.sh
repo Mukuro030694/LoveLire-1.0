@@ -1,5 +1,7 @@
 set -e
 
+sed -i "s/\$PORT/${PORT:-8080}/g" /etc/nginx/conf.d/default.conf
+
 mkdir -p config/jwt
 echo "$JWT_PRIVATE_KEY" > config/jwt/private.pem
 echo "$JWT_PUBLIC_KEY" > config/jwt/public.pem
