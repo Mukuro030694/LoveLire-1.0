@@ -5,16 +5,21 @@ services:
     plan: starter
     dockerfilePath: Dockerfile
     branch: main
+    secretFiles:
+      - name: jwt-private-key
+        path: /etc/secrets/private.pem
+      - name: jwt-public-key
+        path: /etc/secrets/public.pem
     envVars:
       - key: APP_ENV
         value: prod
-      - key: JWT_PRIVATE_KEY
-        fromSecret: jwt-private-key
+      - key: JWT_SECRET_KEY
+        value: /etc/secrets/private.pem
       - key: JWT_PUBLIC_KEY
-        fromSecret: jwt-public-key
+        value: /etc/secrets/public.pem
+      - key: JWT_PASSPHRASE
+        value: lovelire
       - key: DATABASE_URL
         fromSecret: db-url
       - key: MONGODB_URL
         fromSecret: mongo-url
-      - key: JWT_PASSPHRASE
-        value: lovelire
