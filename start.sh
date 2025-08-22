@@ -5,7 +5,7 @@ set -e
 : "${JWT_PUBLIC_KEY:?Need to set JWT_PUBLIC_KEY}"
 : "${JWT_PASSPHRASE:?Need to set JWT_PASSPHRASE}"
 
-echo "Starting app... ✅"
+echo "Starting app..."
 
 sed -i "s/\$PORT/${PORT:-8080}/g" /etc/nginx/conf.d/default.conf
 
@@ -19,9 +19,10 @@ if [ ! -s /var/www/html/config/jwt/private.pem ] || [ ! -s /var/www/html/config/
     exit 1
 fi
 
-chmod 600 /var/www/html/config/jwt/*.pem
+chmod 644 /var/www/html/config/jwt/*.pem
+chown www-data:www-data /var/www/html/config/jwt/*.pem
 
-echo "JWT keys created:"
+echo "JWT keys created with correct permissions:"
 ls -l /var/www/html/config/jwt/
 
 composer install --no-interaction --prefer-dist --optimize-autoloader
