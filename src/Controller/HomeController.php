@@ -39,33 +39,21 @@ class HomeController extends AbstractController
             $userIds[] = $book->getUserId();
         }
 
-        // Debug
-        dump('Books IDs from SQL:', $bookIds);
 
         $collection = $dm->getDocumentCollection(BookCover::class);
         $images = $collection->find(['bookId' => ['$in' => $bookIds]])->toArray();
 
-        // Debug
-        dump('Images from Mongo:', $images);
 
         $imageMap = [];
         foreach ($images as $img) {
-            // Debug
-            dump('Mongo image bookId:', (string) $img['bookId']);
             $imageMap[(string) $img['bookId']] = $img['imageUrl'];
         }
-
-        // Debug
-        dump('User IDs from books:', $userIds);
 
         $userRepo = $entityManager->getRepository(AppUser::class);
         $userMap = [];
         foreach ($userRepo->findBy(['id' => $userIds]) as $userEntity) {
             $userMap[(string) $userEntity->getId()] = $userEntity->getUsername();
         }
-
-        // Debug
-        dump('User Map:', $userMap);
 
         $booksWithIdString = [];
         foreach ($books as $book) {
@@ -85,3 +73,5 @@ class HomeController extends AbstractController
         ]);
     }
 }
+
+
