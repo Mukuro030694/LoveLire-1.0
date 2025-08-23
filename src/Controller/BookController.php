@@ -89,7 +89,7 @@ final class BookController extends AbstractController
             $entityManager->flush();
 
             if ($coverFile) {
-                $uploadsDir = $params->get('kernel.project_dir') . '/public/uploads/covers';
+                $uploadsDir = $params->get('kernel.project_dir') . '/var/uploads/covers';
                 if (!is_dir($uploadsDir)) {
                     mkdir($uploadsDir, 0777, true);
                 }
