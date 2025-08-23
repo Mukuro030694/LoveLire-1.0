@@ -330,10 +330,10 @@ final class BookController extends AbstractController
 
         $books = $qb->getQuery()->getResult();
 
-        // Получаем все id книг
+        // Getting all book IDs
         $bookIds = array_map(fn($book) => $book->getId(), $books);
 
-        // Подгружаем обложки из Mongo
+        // Loading covers from MongoDB
         $covers = $mongoManager->createQueryBuilder(BookCover::class)
             ->field('bookId')->in($bookIds)
             ->getQuery()
