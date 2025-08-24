@@ -12,6 +12,7 @@ html {
     font-family: 'Inter', sans-serif;
     font-weight: 200;
     color: white;
+    font-size: 16px;
 }
 
 header.custom-header {
@@ -275,13 +276,41 @@ header .btn-login:active {
 }
 
 @media (max-width: 768px) {
+    body,
+    html {
+        font-size: 18px;
+    }
     .content-box {
         flex-direction: column;
+        padding: 0.5rem;
+        font-size: 1rem;
     }
-
-    .login-box,
-    .register-box {
-        margin-bottom: 1rem;
+    .carousel-item > .d-flex {
+        flex-direction: column !important;
+        gap: 0.75rem;
+        align-items: stretch !important;
+    }
+    .card.shadow-sm.d-flex.flex-row {
+        flex-direction: column !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+    .carousel-item .book-info,
+    .carousel-item .comment-info {
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin-bottom: 0.5rem;
+        text-align: center !important;
+    }
+    .book-info,
+    .comment-info {
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .book-info img {
+        max-width: 90vw;
+        max-height: 40vh;
+        height: auto;
     }
 }
 
