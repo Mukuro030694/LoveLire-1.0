@@ -95,22 +95,19 @@
 
     <hr>
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 row-cols-xxl-8 g-4"
-        id="book-cards">
+    <div class="cards-list" id="book-cards">
         {% for book in books %}
-        <div class="col">
-            <div class="card h-100 shadow-sm clickable" data-id="{{ book.id }}" data-title="{{ book.title|e }}"
-                data-status="{{ book.status }}" data-note="{{ book.note }}" data-comment="{{ book.comment|e }}"
-                data-cover="{{ book.coverImage is defined and book.coverImage ? book.coverImage : '/images/default-cover.png' }}">
-                <img src="{{ book.coverImage is defined and book.coverImage ? book.coverImage : '/images/default-cover.png' }}"
-                    class="card-img-top" alt="{{ book.title }}">
-                <div class="card-body">
-                    <h5 class="card-title text-truncate">{{ book.title }}</h5>
-                </div>
+        <div class="card h-100 shadow-sm clickable" data-id="{{ book.id }}" data-title="{{ book.title|e }}"
+            data-status="{{ book.status }}" data-note="{{ book.note }}" data-comment="{{ book.comment|e }}"
+            data-cover="{{ book.coverImage is defined and book.coverImage ? book.coverImage : '/images/default-cover.png' }}">
+            <img src="{{ book.coverImage is defined and book.coverImage ? book.coverImage : '/images/default-cover.png' }}"
+                class="card-img-top" alt="{{ book.title }}">
+            <div class="card-body">
+                <h5 class="card-title text-truncate">{{ book.title }}</h5>
             </div>
         </div>
         {% else %}
-        <div class="col-12">
+        <div>
             <p class="text-muted">Aucun livre trouvé.</p>
         </div>
         {% endfor %}

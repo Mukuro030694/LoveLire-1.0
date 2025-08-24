@@ -339,9 +339,39 @@ header .btn-login:active {
         max-height: 40vh;
         height: auto;
     }
+
+    .cards-list,
+    .cards-container {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem;
+        width: 100%;
+        overflow-x: unset;
+        overflow-y: auto;
+    }
+
+    .card,
+    .card.h-100.shadow-sm.clickable {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 auto 1rem auto;
+        display: flex;
+        flex-direction: column !important;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 0.3rem 0.3rem 0 0;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
 }
 
-/* Для очень маленьких экранов */
 @media (max-width: 480px) {
     header.custom-header img.logo {
         height: 50px;
