@@ -12,9 +12,12 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN mkdir -p var/uploads && \
+RUN mkdir -p var/uploads/covers && \
     mkdir -p public && \
-    ln -s ../var/uploads public/uploads
+    rm -rf public/uploads && \
+    ln -s ../var/uploads public/uploads && \
+    chown -R www-data:www-data var/uploads && \
+    chmod -R 775 var/uploads
 
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
