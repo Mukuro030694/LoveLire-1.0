@@ -21,7 +21,8 @@ header.custom-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 1rem;
+    padding: 1.2rem 2rem;
+    font-size: 2rem;
     border-radius: 0.25rem;
 }
 
@@ -32,26 +33,29 @@ header.custom-header .logo-title {
 }
 
 header.custom-header img.logo {
-    height: 60px;
+    height: 100px;
     width: auto;
 }
 
 header.custom-header .title-text {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 2.5rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 header.custom-header .title-text .slogan {
-    font-weight: 200;
-    font-size: 1rem;
+    font-size: 1.3rem;
+    font-weight: 400;
     color: #555;
 }
 
 header.custom-header .btn-login {
     font-weight: 600;
+    font-size: 1.5rem;
+    padding: 0.8rem 2rem;
+    border-radius: 0.4rem;
 }
 
 .content-box {
@@ -280,10 +284,33 @@ header .btn-login:active {
     html {
         font-size: 18px;
     }
+    header.custom-header {
+        padding: 1.2rem 0.5rem;
+        font-size: 1.2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    header.custom-header img.logo {
+        height: 70px;
+    }
+    header.custom-header .title-text {
+        font-size: 1.7rem;
+        gap: 0.5rem;
+    }
+    header.custom-header .title-text .slogan {
+        font-size: 1.1rem;
+    }
+    header.custom-header .btn-login {
+        font-size: 1.1rem;
+        padding: 0.7rem 1.5rem;
+    }
     .content-box {
         flex-direction: column;
         padding: 0.5rem;
         font-size: 1rem;
+        min-height: 70vh;
+        height: auto;
     }
     .carousel-item > .d-flex {
         flex-direction: column !important;
@@ -311,6 +338,23 @@ header .btn-login:active {
         max-width: 90vw;
         max-height: 40vh;
         height: auto;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    header.custom-header img.logo {
+        height: 50px;
+    }
+    header.custom-header .title-text {
+        font-size: 1.2rem;
+    }
+    header.custom-header .btn-login {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+    .content-box {
+        min-height: 60vh;
     }
 }
 
