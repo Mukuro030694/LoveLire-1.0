@@ -1,203 +1,424 @@
-body, html {
-    font-size: 18px;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap');
+
+body,
+html {
+    height: 100%;
     margin: 0;
     padding: 0;
-    height: 100%;
-    background: url('../images/background.jpg') no-repeat center center fixed;
+    background-image: url('../images/background.jpg');
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+    color: white;
+    font-size: 16px;
 }
 
-.container {
-    width: 100%;
-    max-width: 100%;
-    padding: 1rem;
-    margin: 0 auto;
+header.custom-header {
+    background: rgba(255, 255, 255, 0.8);
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 2rem;
+    font-size: 2rem;
+    border-radius: 0.25rem;
 }
 
-.cards-container {
-    display: grid !important;
-    gap: 1.5rem;
-    grid-template-columns: 1fr;
-    width: 100%;
-    align-items: start;
+header.custom-header .logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
-.card {
-    border-radius: 0.5rem;
+header.custom-header img.logo {
+    height: 100px;
+    width: auto;
+}
+
+header.custom-header .title-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+header.custom-header .title-text .slogan {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #555;
+}
+
+header.custom-header .btn-login {
+    font-weight: 600;
+    font-size: 1.5rem;
+    padding: 0.8rem 2rem;
+    border-radius: 0.4rem;
+}
+
+.content-box {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    align-self: start;
-    justify-content: flex-start;
-    height: auto;
-    max-height: none;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    justify-content: center;
+    min-height: calc(90vh - 80px);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 0.5rem;
+    color: black;
 }
 
-.card-img-top {
+.carousel-control-prev,
+.carousel-control-next {
+    height: 6rem;
+    width: 6rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background-color: rgba(197, 197, 197, 0.5);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-size: 100% 100%;
+}
+
+.carousel-item {
+    gap: 1.5rem;
+    align-items: center;
+    background-color: rgba(255, 255, 255);
+    border-radius: 0.5rem;
+}
+
+.carousel-item>.d-flex {
+    display: flex !important;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: stretch;
+    flex-wrap: nowrap;
     width: 100%;
-    height: auto;
-    aspect-ratio: 2 / 3;
+}
+
+.carousel-item.active {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.carousel-item .book-info,
+.carousel-item .comment-info {
+    flex: 1 1 0;
+    max-width: none !important;
+    text-align: center !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+
+    .carousel-item .book-info,
+    .carousel-item .comment-info {
+        flex: 1 1 50%;
+        max-width: 50%;
+        margin-bottom: 1rem;
+    }
+}
+
+.book-info,
+.comment-info {
+    flex: 1;
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.book-info img {
+    max-height: 100%;
+    height: 100%;
+    border-radius: 0.3rem;
     object-fit: cover;
 }
 
-.card-body {
+.book-info .book-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.comment-info .author {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.comment-info .comment-text {
+    font-style: italic;
+    margin-bottom: 0.75rem;
+}
+
+.stars {
+    color: #ffb400;
+    font-size: 1.2rem;
+}
+
+header .btn-login {
+    background-color: #2C2C2C !important;
+    color: white !important;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+header .btn-login:hover {
+    background-color: #444444 !important;
+}
+
+header .btn-login:active {
+    background-color: #1a1a1a !important;
+}
+
+.container {
+    max-height: 2000px;
+    max-width: 2000px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.custom-header,
+.content-box {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.author {
+    font-weight: 600;
+    color: white;
+}
+
+.login-box,
+.register-box {
+    background: rgba(255, 255, 255, 0.95);
+    color: black;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 300px;
+}
+
+.login-box h2,
+.register-box h2 {
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.login-box form,
+.register-box form {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
-    padding: 1rem;
-    justify-content: flex-start;
-    align-items: stretch;
+    gap: 1rem;
 }
 
-.card-body .btn,
-.card .btn {
-    align-self: center;
+.login-box .form-label,
+.register-box .form-label {
+    font-weight: 600;
+    color: #333;
 }
 
-.card-title {
+.login-box .form-control,
+.register-box .form-control {
+    border: 1px solid #ccc;
+    border-radius: 0.3rem;
+    padding: 0.5rem 0.75rem;
     font-size: 1rem;
-    line-height: 1.3;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    color: #333;
+}
+
+.login-box .form-control:focus,
+.register-box .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.login-box button,
+.register-box button {
+    padding: 0.6rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.3rem;
+    transition: background-color 0.3s ease;
+}
+
+.login-box button.btn-dark {
+    background-color: #2C2C2C;
+    color: white;
+}
+
+.login-box button.btn-dark:hover {
+    background-color: #444;
+}
+
+.register-box button.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.register-box button.btn-success:hover {
+    background-color: #218838;
+}
+
+@media (max-width: 1024px) {
+
+    body,
+    html {
+        font-size: 18px;
+    }
+
+    header.custom-header {
+        padding: 1.2rem 0.5rem;
+        font-size: 1.2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    header.custom-header img.logo {
+        height: 70px;
+    }
+
+    header.custom-header .title-text {
+        font-size: 1.7rem;
+        gap: 0.5rem;
+    }
+
+    header.custom-header .title-text .slogan {
+        font-size: 1.1rem;
+    }
+
+    header.custom-header .btn-login {
+        font-size: 1.1rem;
+        padding: 0.7rem 1.5rem;
+    }
+
+    .content-box {
+        flex-direction: column;
+        padding: 0.5rem;
+        font-size: 1rem;
+        min-height: 70vh;
+        height: auto;
+    }
+
+    .carousel-item>.d-flex {
+        flex-direction: column !important;
+        gap: 0.75rem;
+        align-items: stretch !important;
+    }
+
+    .card.shadow-sm.d-flex.flex-row {
+        flex-direction: column !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .carousel-item .book-info,
+    .carousel-item .comment-info {
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin-bottom: 0.5rem;
+        text-align: center !important;
+    }
+
+    .book-info,
+    .comment-info {
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .book-info img {
+        max-width: 90vw;
+        max-height: 40vh;
+        height: auto;
+    }
+
+    .cards-list,
+    .cards-container {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem;
+        width: 100%;
+        overflow-x: unset;
+        overflow-y: auto;
+    }
+
+    .card,
+    .card.h-100.shadow-sm.clickable {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 auto 1rem auto;
+        display: flex;
+        flex-direction: column !important;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 0.3rem 0.3rem 0 0;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
     header.custom-header img.logo {
         height: 50px;
     }
+
     header.custom-header .title-text {
-        font-size: 1.4rem;
-    }
-    header.custom-header .btn-login {
-        font-size: 1.1rem;
-        padding: 0.6rem 1.2rem;
-    }
-    .content-box {
-        min-height: 60vh;
-        font-size: 1.1rem;
-    }
-    .card-title {
         font-size: 1.2rem;
     }
-}
 
-@media (min-width: 769px) and (max-width: 1024px) {
-    body, html {
-        font-size: 17px;
-    }
-
-    header.custom-header {
-        padding: 1.2rem;
-        font-size: 1.5rem;
-        flex-direction: row;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .cards-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (min-width: 1025px) {
-    body, html {
-        font-size: 16px;
-    }
-
-    .container {
-        max-width: 1200px;
-        padding: 2rem;
+    header.custom-header .btn-login {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
     }
 
     .content-box {
-        flex-direction: row;
-        gap: 2rem;
-        min-height: auto;
-        justify-content: flex-start;
-        align-items: flex-start;
-    }
-
-    .cards-container {
-        display: grid !important;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-        overflow: visible !important;
-        align-items: start;
-    }
-
-    .book-info,
-    .comment-info {
-        height: auto !important;
-        justify-content: flex-start !important;
-        align-self: start !important;
-    }
-
-    .card {
-        align-self: start !important;
-        max-height: none !important;
+        min-height: 60vh;
     }
 }
 
-@media (min-width: 1400px) {
-    body, html {
-        font-size: 17px;
-    }
-
-    .container {
-        max-width: 1400px;
-        margin: 0 auto;
-    }
-
-    .cards-container {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-
-    .carousel-item .book-info,
-    .carousel-item .comment-info {
-        justify-content: flex-start !important;
-        align-items: flex-start !important;
-    }
-}
-
-@media (min-width: 1800px) {
-    .container {
-        max-width: 1600px;
-    }
-
-    .cards-container {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-}
-
-.modal-body.d-flex {
-    align-items: flex-start;
-}
-
-.modal-body.d-flex .flex-shrink-0 img,
-.modal-body .img-fluid {
-    max-width: 100%;
-    height: auto;
+.card-img-top {
     object-fit: cover;
+    height: 200px;
 }
 
-.content-box .controls,
-.content-box .btn-group,
-.controls {
-    align-self: flex-start !important;
+.card-title {
+    font-size: 1rem;
 }
 
-.cards-container > * {
-    align-self: start !important;
+.card.clickable {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.book-info[style*="height: 100%"],
-.book-info[style*="height:100%"],
-.comment-info[style*="height: 100%"],
-.comment-info[style*="height:100%"] {
-    height: auto !important;
+.card.clickable:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
