@@ -12,7 +12,7 @@ html {
     font-family: 'Inter', sans-serif;
     font-weight: 200;
     color: white;
-    font-size: 16px;
+    font-size: 18px; /* by default */
 }
 
 header.custom-header {
@@ -122,15 +122,6 @@ header.custom-header .btn-login {
     justify-content: center; 
 }
 
-@media (max-width: 1024px) {
-    .carousel-item .book-info,
-    .carousel-item .comment-info {
-        flex: 1 1 50%;
-        max-width: 50%;
-        margin-bottom: 1rem;
-    }
-}
-
 .book-info,
 .comment-info {
     flex: 1;
@@ -142,8 +133,8 @@ header.custom-header .btn-login {
 }
 
 .book-info img {
-    max-height: 100%;
-    height: 100%;
+    max-width: 100%;
+    height: auto;
     border-radius: 0.3rem;
     object-fit: cover;
 }
@@ -188,16 +179,17 @@ header .btn-login:active {
 }
 
 .container {
-    max-height: 2000px;
-    max-width: 2000px;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    width: 100%;
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin: 0 auto;
 }
 
 .custom-header,
 .content-box {
     font-size: 1.2rem;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .author {
@@ -279,119 +271,24 @@ header .btn-login:active {
     background-color: #218838;
 }
 
-@media (max-width: 1024px) {
-    body,
-    html {
-        font-size: 18px;
-    }
-    header.custom-header {
-        padding: 1.2rem 0.5rem;
-        font-size: 1.2rem;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    header.custom-header img.logo {
-        height: 70px;
-    }
-    header.custom-header .title-text {
-        font-size: 1.7rem;
-        gap: 0.5rem;
-    }
-    header.custom-header .title-text .slogan {
-        font-size: 1.1rem;
-    }
-    header.custom-header .btn-login {
-        font-size: 1.1rem;
-        padding: 0.7rem 1.5rem;
-    }
-    .content-box {
-        flex-direction: column;
-        padding: 0.5rem;
-        font-size: 1rem;
-        min-height: 70vh;
-        height: auto;
-    }
-    .carousel-item > .d-flex {
-        flex-direction: column !important;
-        gap: 0.75rem;
-        align-items: stretch !important;
-    }
-    .card.shadow-sm.d-flex.flex-row {
-        flex-direction: column !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-    }
-    .carousel-item .book-info,
-    .carousel-item .comment-info {
-        flex: 1 1 100%;
-        max-width: 100%;
-        margin-bottom: 0.5rem;
-        text-align: center !important;
-    }
-    .book-info,
-    .comment-info {
-        align-items: center;
-        gap: 0.5rem;
-    }
-    .book-info img {
-        max-width: 90vw;
-        max-height: 40vh;
-        height: auto;
-    }
-
-    .cards-list,
-    .cards-container {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 1rem;
-        width: 100%;
-        overflow-x: unset;
-        overflow-y: auto;
-    }
-
-    .card,
-    .card.h-100.shadow-sm.clickable {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-        margin: 0 auto 1rem auto;
-        display: flex;
-        flex-direction: column !important;
-    }
-
-    .card-img-top {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 0.3rem 0.3rem 0 0;
-    }
-
-    .card-body {
-        padding: 1rem;
-    }
+/* --- card grid --- */
+.cards-container {
+    display: grid;
+    grid-template-columns: 1fr; /* by default: one card */
+    gap: 1.5rem;
+    width: 100%;
 }
 
-@media (max-width: 480px) {
-    header.custom-header img.logo {
-        height: 50px;
-    }
-    header.custom-header .title-text {
-        font-size: 1.2rem;
-    }
-    header.custom-header .btn-login {
-        font-size: 1rem;
-        padding: 0.5rem 1rem;
-    }
-    .content-box {
-        min-height: 60vh;
-    }
+.card {
+    width: 100%;
+    border-radius: 0.5rem;
 }
 
 .card-img-top {
     object-fit: cover;
     height: 200px;
 }
+
 .card-title {
     font-size: 1rem;
 }
@@ -406,8 +303,91 @@ header .btn-login:active {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+/* --- Responsiveness --- */
 
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+    body, html {
+        font-size: 17px;
+    }
 
+    header.custom-header {
+        padding: 1.2rem;
+        font-size: 1.5rem;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    }
 
+    .cards-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
+/* Desktop */
+@media (min-width: 1025px) {
+    body, html {
+        font-size: 16px;
+    }
 
+    .container {
+        max-width: 1200px;
+        padding: 2rem;
+    }
+
+    .content-box {
+        flex-direction: row;
+        gap: 2rem;
+    }
+
+    .cards-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 1400px) {
+    body, html {
+        font-size: 17px;
+    }
+
+    .container {
+        max-width: 1400px;
+    }
+
+    .cards-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Ultra-wide */
+@media (min-width: 1800px) {
+    .container {
+        max-width: 1600px;
+    }
+
+    .cards-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    header.custom-header img.logo {
+        height: 50px;
+    }
+    header.custom-header .title-text {
+        font-size: 1.4rem;
+    }
+    header.custom-header .btn-login {
+        font-size: 1.1rem;
+        padding: 0.6rem 1.2rem;
+    }
+    .content-box {
+        min-height: 60vh;
+        font-size: 1.1rem;
+    }
+    .card-title {
+        font-size: 1.2rem;
+    }
+}
