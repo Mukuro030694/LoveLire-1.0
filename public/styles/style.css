@@ -279,7 +279,7 @@ header .btn-login:active {
     background-color: #218838;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     body,
     html {
         font-size: 18px;
@@ -394,6 +394,16 @@ header .btn-login:active {
 }
 .card-title {
     font-size: 1rem;
+}
+
+.card.clickable {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card.clickable:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 
