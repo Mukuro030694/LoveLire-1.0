@@ -2,6 +2,9 @@ body, html {
     font-size: 18px;
     margin: 0;
     padding: 0;
+    height: 100%;
+    background: url('../images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
 }
 
 .container {
@@ -12,17 +15,24 @@ body, html {
 }
 
 .cards-container {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: grid !important;
     gap: 1.5rem;
+    grid-template-columns: 1fr;
     width: 100%;
+    align-items: start;
 }
 
 .card {
-    width: 100%;
     border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    align-self: start;
+    justify-content: flex-start;
+    height: auto;
+    max-height: none;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .card-img-top {
@@ -37,6 +47,9 @@ body, html {
     flex-direction: column;
     gap: 0.5rem;
     text-align: center;
+    padding: 1rem;
+    justify-content: flex-start;
+    align-items: stretch;
 }
 
 .card-body .btn,
@@ -53,9 +66,37 @@ body, html {
     overflow: hidden;
 }
 
-@media (min-width: 769px) {
+@media (max-width: 480px) {
+    header.custom-header img.logo {
+        height: 50px;
+    }
+    header.custom-header .title-text {
+        font-size: 1.4rem;
+    }
+    header.custom-header .btn-login {
+        font-size: 1.1rem;
+        padding: 0.6rem 1.2rem;
+    }
+    .content-box {
+        min-height: 60vh;
+        font-size: 1.1rem;
+    }
+    .card-title {
+        font-size: 1.2rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
     body, html {
         font-size: 17px;
+    }
+
+    header.custom-header {
+        padding: 1.2rem;
+        font-size: 1.5rem;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
     }
 
     .cards-container {
@@ -73,11 +114,32 @@ body, html {
         padding: 2rem;
     }
 
+    .content-box {
+        flex-direction: row;
+        gap: 2rem;
+        min-height: auto;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
     .cards-container {
         display: grid !important;
-        gap: 1.5rem;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
         overflow: visible !important;
+        align-items: start;
+    }
+
+    .book-info,
+    .comment-info {
+        height: auto !important;
+        justify-content: flex-start !important;
+        align-self: start !important;
+    }
+
+    .card {
+        align-self: start !important;
+        max-height: none !important;
     }
 }
 
@@ -90,10 +152,52 @@ body, html {
         max-width: 1400px;
         margin: 0 auto;
     }
+
+    .cards-container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .carousel-item .book-info,
+    .carousel-item .comment-info {
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+    }
 }
 
 @media (min-width: 1800px) {
     .container {
         max-width: 1600px;
     }
+
+    .cards-container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
+
+.modal-body.d-flex {
+    align-items: flex-start;
+}
+
+.modal-body.d-flex .flex-shrink-0 img,
+.modal-body .img-fluid {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.content-box .controls,
+.content-box .btn-group,
+.controls {
+    align-self: flex-start !important;
+}
+
+.cards-container > * {
+    align-self: start !important;
+}
+
+.book-info[style*="height: 100%"],
+.book-info[style*="height:100%"],
+.comment-info[style*="height: 100%"],
+.comment-info[style*="height:100%"] {
+    height: auto !important;
 }
