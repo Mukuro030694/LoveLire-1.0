@@ -12,7 +12,7 @@ html {
     font-family: 'Inter', sans-serif;
     font-weight: 200;
     color: white;
-    font-size: 18px; /* by default */
+    font-size: 18px; /* по умолчанию — для мобильных */
 }
 
 header.custom-header {
@@ -271,26 +271,47 @@ header .btn-login:active {
     background-color: #218838;
 }
 
-/* --- card grid --- */
+/* --- Сетка карточек --- */
 .cards-container {
     display: grid;
-    grid-template-columns: 1fr; /* by default: one card */
+    grid-template-columns: 1fr; /* по умолчанию: одна карточка */
     gap: 1.5rem;
     width: 100%;
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     border-radius: 0.5rem;
 }
 
 .card-img-top {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
     object-fit: cover;
-    height: 200px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.card-body .btn,
+.card .btn {
+    align-self: center;
 }
 
 .card-title {
     font-size: 1rem;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .card.clickable {
@@ -303,7 +324,7 @@ header .btn-login:active {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* --- Responsiveness --- */
+/* --- Адаптивность --- */
 
 /* Tablet */
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -341,7 +362,10 @@ header .btn-login:active {
     }
 
     .cards-container {
-        grid-template-columns: repeat(3, 1fr);
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        overflow: visible !important;
     }
 }
 
@@ -353,10 +377,11 @@ header .btn-login:active {
 
     .container {
         max-width: 1400px;
+        margin: 0 auto;
     }
 
     .cards-container {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 }
 
@@ -367,7 +392,7 @@ header .btn-login:active {
     }
 
     .cards-container {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 }
 
