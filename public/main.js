@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (loginResponse.ok) {
                         window.location.href = '/library';
                         alert('Erreur de connexion après inscription, veuillez vous connecter manuellement.');
-                        window.location.href = '/login_page';
+                        window.location.href = '/auth/auth_page';
                     }
                 } else {
                     const errorData = await registerResponse.json();
